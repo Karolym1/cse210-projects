@@ -17,13 +17,14 @@ class Program
             Console.WriteLine("3. Save");
             Console.WriteLine("4. Load");
             Console.WriteLine("5. Quit");
+            Console.WriteLine("6. Search");
             Console.Write("What would you like to do? ");
 
             string input = Console.ReadLine() ?? "";
 
-            while (!int.TryParse(input, out choice) || choice < 1 || choice > 5)
+            while (!int.TryParse(input, out choice) || choice < 1 || choice > 6)
             {
-                Console.Write("Invalid choice. Enter a number 1-5: ");
+                Console.Write("Invalid choice. Enter a number 1-6: ");
                 input = Console.ReadLine() ?? "";
             }
 
@@ -57,6 +58,12 @@ class Program
                 string fileName = Console.ReadLine() ?? "";
                 journal.LoadFromFile(fileName);
             }
+            else if (choice == 6)
+            {
+                Console.Write("Enter a keyword to search: ");
+                string keyword = Console.ReadLine() ?? "";
+                journal.Search(keyword);
+            }    
         }
     }
 }

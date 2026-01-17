@@ -19,6 +19,28 @@ public class Journal
         }
     }
 
+    public void Search(string keyword)
+    {
+        bool foundAny = false;
+
+        foreach (Entry entry in _entries)
+        {
+            if (entry._date.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                entry._promptText.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                entry._entryText.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            {
+                entry.Display();
+                foundAny = true;
+            }
+        }
+
+        if (!foundAny)
+        {
+            Console.WriteLine("No matching entries found.");
+            Console.WriteLine();
+        }
+    }
+
     public void SaveToFile(string fileName)
     {
         using (StreamWriter outputFile = new StreamWriter(fileName))
@@ -50,12 +72,14 @@ public class Journal
 
             if (parts.Length < 3)
             {
-                continue; // skip malformed lines
+                continue;
             }
 
             Entry entry = new Entry();
             entry._date = parts[0];
             entry._promptText = parts[1];
+
+            // If the entry text itself contains '|', re-join it safely:
             entry._entryText = string.Join("|", parts, 2, parts.Length - 2);
 
             _entries.Add(entry);
@@ -64,4 +88,3 @@ public class Journal
         Console.WriteLine("Journal loaded.");
     }
 }
-
