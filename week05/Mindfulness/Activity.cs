@@ -7,11 +7,10 @@ public class Activity
     protected string _description;
     protected int _duration;
 
-    public Activity()
+    public Activity(string name, string description)
     {
-        _name = "";
-        _description = "";
-        _duration = 0;
+        _name = name;
+        _description = description;
     }
 
     public void DisplayStartingMessage()
@@ -22,7 +21,6 @@ public class Activity
         Console.WriteLine(_description);
         Console.WriteLine();
         Console.Write("How long, in seconds, would you like for your session? ");
-
         _duration = int.Parse(Console.ReadLine());
 
         Console.Clear();
@@ -33,7 +31,7 @@ public class Activity
     public void DisplayEndingMessage()
     {
         Console.WriteLine();
-        Console.WriteLine("Well done!!");
+        Console.WriteLine("Well done!");
         ShowSpinner(3);
 
         Console.WriteLine();
@@ -41,27 +39,22 @@ public class Activity
         ShowSpinner(3);
     }
 
-    public void ShowSpinner(int seconds)
+    protected void ShowSpinner(int seconds)
     {
         string[] spinner = { "|", "/", "-", "\\" };
-        int endTime = DateTime.Now.AddSeconds(seconds).Second;
+        DateTime endTime = DateTime.Now.AddSeconds(seconds);
 
         int i = 0;
-        while (DateTime.Now.Second != endTime)
+        while (DateTime.Now < endTime)
         {
             Console.Write(spinner[i]);
             Thread.Sleep(250);
-            Console.Write("\b \b");
-            i++;
-
-            if (i >= spinner.Length)
-            {
-                i = 0;
-            }
+            Console.Write("\b");
+            i = (i + 1) % spinner.Length;
         }
     }
 
-    public void ShowCountDown(int seconds)
+    protected void ShowCountDown(int seconds)
     {
         for (int i = seconds; i > 0; i--)
         {

@@ -1,4 +1,8 @@
 using System;
+// EXCEEDING REQUIREMENTS:
+// Added Logger.cs to record each completed activity to activity_log.txt with timestamp,
+// activity name, duration, and (for Listing) the number of items entered.
+
 
 class Program
 {
