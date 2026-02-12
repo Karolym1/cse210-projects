@@ -1,4 +1,0 @@
-100
-SimpleGoal|Read|Read scriptures|10|False
-EternalGoal|Pray|Daily Prayer|5
-ChecklistGoal|Temple|Attend Temple|20|50|2|1
